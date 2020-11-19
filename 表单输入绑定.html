@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单输入绑定</title>
+    <script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+<div id="app">
+<!--    输入框-->
+    <input type="text" name="input_text" v-model="Input_text">
+<!--    数据的双向绑定-->
+    <p>{{Input_text}}</p>
+<!--多选框-->
+<span v-for="item in names">
+    <label>{{item}}</label>
+    <input type="checkbox" :value="item" v-model="choice_names">
+</span>
+    <P v-for="choice in choice_names">{{choice}}</P>
+
+    <!--下拉框-->
+    <br>
+<select  v-model="s_fruit" >
+    <option v-for="fruit in select_fruits" :value="fruit">{{fruit}}</option>
+</select>
+    <p>{{s_fruit}}</p>
+
+    <!--下拉多选框-->
+<select v-model="selected_citys" multiple="multiple">
+    <option v-for=" city in select_citys" :value="city">{{city}}</option>
+</select>
+<p>{{selected_citys}}</p>
+
+
+</div>
+
+
+<script>
+    var myapp=new Vue({
+        el:"#app",
+        data:{
+            Input_text:"林景",
+            names:["小鸟","小鸡","小鸭","小猪"],
+            choice_names:[],
+            select_fruits:["苹果","草莓","西瓜","桃子"],
+            s_fruit:"",
+            select_citys:["广州","茂名","海南","东莞"],
+            selected_citys:[],
+        }
+    })
+</script>
+</body>
+</html>

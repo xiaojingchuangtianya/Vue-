@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修饰符使用</title>
+    <script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+<!--因为点击事件click_first在click_second上面,点击事件1也会冒泡到事件2上,如不希望发生这样的事情,则在事件1后加.stop,例如@click.stop="click_first"-->
+<div id="app">
+    <div @click="click_second">
+            <button type="button" @click.stop="click_first">点击事件</button>
+    </div>
+
+    <div>
+        <form action="" method="post">
+<!--  v-model存储值 -->
+            <input type="text" v-model="city_name">
+            <input type="submit" value="查询" @click.prevent="search_weather">
+            <br>
+<!--           按下回车键执行查询,效果与上面的相似 -->
+            <input type="text" v-model="city_name" @clickdown.enter.down="search_weather">
+        </form>
+    </div>
+
+    <div class="show">
+        <h1>城市名字:{{city_name}}</h1>
+        <h2>温度:{{temperature}}</h2>
+        <h2>实时状况::{{is_rain}}</h2>
+        <h2>风向:{{wind}},风力大小:{{wind_size}}</h2>
+    </div>
+</div>
+<script>
+    let myapp=new Vue({
+        el:"#app",
+        data:{
+            city_name:"",
+            temperature:"",
+            is_rain:"",
+            wind:"",
+            wind_size:""
+
+        },
+        methods:{
+            click_first:function () {
+                console.log("1")
+            },
+            click_second:function () {
+                console.log("2")
+            },
+            search_weather:async function () {
+                var weather_url='https://free-api.heweather.net/s6/weather/now?location='+this.city_name+'&key=6244e830ccb64a5781eb35aefae4574c';
+                console.log(this.city_name);
+                let   res = await fetch(weather_url);
+                let result= await res.json();
+                now_weather=result.HeWeather6[0].now;
+                this.temperature=now_weather.tmp;
+                this.is_rain=now_weather.cond_txt;
+                this.wind=now_weather.wind_dir;
+                this.wind_size=now_weather.wind_sc;
+            }
+        }
+    })
+</script>
+</body>
+</html>

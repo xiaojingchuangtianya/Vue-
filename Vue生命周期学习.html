@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue生命周期学习</title>
+    <script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+<div id="app">
+    {{msg}}
+    <div :id="msg">lalal</div>
+</div>
+<script>
+    var myapp=new Vue({
+        el:"#app",
+        data:{
+            msg:"hello"
+        },
+        //八个生命周期的使用,但是beforeDestroy,destroyed使用较少.
+
+        beforeCreate(){
+            //此时,数据和方法都没有绑定到myapp上,只是实例化了内容
+            //一般此时做ajax操作,获取数据
+            // console.log("创造前")
+            // console.log(this)
+            // console.log(this.msg)
+            // console.log(this.clickevent)
+        },
+        created(){
+            //此时数据已经绑定到数据和方法到app上,但数据还没有渲染到页面上
+            console.log(this)
+            console.log(this.msg)
+            console.log(this.clickevent)
+        },
+
+        beforeMount(){
+            //此时的数据暂时还没有渲染到页面中,所以id值获取为null
+            console.log(document.getElementById("hello"))
+            console.log("渲染前")
+            console.log(this)
+            console.log(this.msg)
+        },
+        Mounted(){
+            //此时数据已经渲染了,数据已经渲染到页面,
+            console.log(document.getElementById("hello"))
+            console.log("渲染后")
+            console.log(this)
+            console.log(this.msg)
+        },
+        beforeUpdate:function(){
+          //此时数据已经发生修改,但是并未渲染到前端,
+          console.log("修改前")
+            console.log(this)
+            console.log(this.msg)
+            console.log(document.getElementById("hello"))
+            console.log(document.getElementById("hello1"))
+        },
+        updated:function(){
+          //  在此步时,内容渲染到页面了
+          console.log("修改后")
+            console.log(this)
+            console.log(this.msg)
+            console.log(document.getElementById("hello"))
+            console.log(document.getElementById("hello1"))
+        },
+        beforeDestroy:function(){
+          console.log("摧毁前")
+        },destroyed:function(){
+            console.log("摧毁后")
+        },
+        methods:{
+            clickevent:function () {
+            }
+        }
+    })
+
+</script>
+</body>
+</html>

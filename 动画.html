@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--过于鸡肋,不要用 -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>动画转换</title>
+    <script type="text/javascript" src="vue.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .content{
+            float: left;
+            background: greenyellow;
+            width: 100vw;
+            height: 50vh;
+        }
+        .right{
+            position: absolute;
+            right: 0;
+            width: 30vw;
+            height: 50vh;
+            background: red;
+        }
+        /*命名规则,下面起的fade-enter-active...   */
+        .fade-enter-active,.fade-leave-active{
+            transition: opacity 1.5s;
+        }
+        .fade-enter,.fade-leave-to{
+            opacity:0;
+        }
+
+        .slide-enter-active,.slide-leave-active{
+            transition: transiform 4s;
+        }
+        .slide-enter,.slide-leave-to{
+            transform: translateX(30vw);
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+<!--        name为-->
+        <transition name="fade">
+            <div class="content" v-if="is_show">
+                <p></p>
+                <p></p>
+            </div>
+        </transition>
+
+        <transition name="slide">
+            <div class="right" v-if="is_show_red">
+            </div>
+        </transition>
+
+        <button @click="change_show">绿色</button>
+        <button @click="open_red">拉出/隐藏</button>
+    </div>
+
+<script type="text/javascript">
+    var myapp=new Vue({
+        el:"#app",
+        data:{
+            is_show:true,
+            is_show_red:true
+        },
+        methods:{
+            change_show:function () {
+                this.is_show= !this.is_show
+            },
+            open_red:function () {
+                this.is_show_red=!this.is_show_red
+            }
+        }
+    })
+</script>
+</body>
+</html>

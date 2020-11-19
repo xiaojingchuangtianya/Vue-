@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>侦听器</title>
+    <script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h2>{{message}}</h2>
+        <li v-for="item,key in i_lists">{{item}}</li>
+    </div>
+
+    <script type="text/javascript">
+        var app=new Vue({
+            el:"#app",
+            data:{
+                message:"信息内容",
+                i_lists:["1","2","3","4"],
+
+            },
+
+            //这里建立一个监听事件,如果message被修改则会触发事件
+            watch:{
+                message:function (value) {
+                    alert("内容被修改为:"+value)
+                },
+                i_lists: function (value) {
+                    alert("数组被改变!然后修改message");
+                    this.message="修改你这里了"
+                }
+            }
+        })
+    </script>
+</body>
+</html>

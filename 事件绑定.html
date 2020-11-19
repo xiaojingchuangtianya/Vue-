@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件绑定</title>
+    <script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <h2>点击了{{count}}次</h2>
+<!--使用表达式进行计算-->
+    <button type="button" @click="count+=1">点击</button>
+
+<!--获取事件对象-->
+    <br>
+    <button type="button" @click="clickEvent">传输</button>
+
+<!--事件传参-->
+    <h1>事件传参</h1>
+    <ul>
+                                                        <!--  传参可以是单个,多个,$event代表传入event     -->
+        <li v-for="item,index in data_list" @click="transimethod(index,item,$event)">{{item}}</li>
+    </ul>
+</div>
+<script>
+    var myapp=new Vue({
+        el:"#app",
+        data:{
+            count:0,
+            data_list:["linjing","超级无敌可爱小仙女","林景"]
+        },
+        methods:{
+            clickEvent:function (event) {
+                console.log(event);
+                console.log(this)
+            },
+            transimethod:function (m_index,m_item,m_event) {
+                console.log(m_index);
+                console.log(m_item);
+                console.log(m_event)
+            }
+        }
+    })
+</script>
+</body>
+</html>

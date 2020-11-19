@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件间传值</title>
+    <script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <h2>选中:{{check_item}}</h2>
+                        <!-- 这在主体中定义了一个father_get ,如果clild_to_father被吊起时使用  -->
+ <product v-for="item in data_list" :i="item" @child_to_father="father_get"></product>
+<!--    此时i承接了item的值,而传给template使用-->
+</div>
+
+<script>
+<!--    组件名字为 'product' -->
+   let define_component=Vue.component("product",{
+       //写好承接元素
+       props:["i"],//props ko夫传子
+        template:`<div>
+                    <li>
+                        <h2>标题:{{i.title}}</h2>
+                        <p>名字:{{i.name}}</p>
+                        <span>价格:{{i.price}}</span>
+                        <button @click="choose(i.name)" >chooice</button>
+                    </li>
+                  </div>`,
+       methods:{
+           choose:function (event) {
+                console.log(event);
+                //触发事件(child_to_father),第二值为参数
+               this.$emit("child_to_father",event)
+           }
+       }
+    });
+
+
+    let root_app=new Vue({
+        el:"#app",
+        data:{
+            check_item:"",
+            data_list:[
+                {title:"1",
+                name:"linjing1",
+                price:2},
+                {title:"2",
+                name:"linjing2",
+                price:4},
+                {title:"3",
+                name:"linjing3",
+                price:6}
+            ]
+        },
+        methods: {
+            father_get:function(event){
+                console.log("触发成功后",event);
+                this.check_item=event
+            }
+        }
+
+    })
+
+</script>
+
+
+</body>
+</html>

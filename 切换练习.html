@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>切换练习</title>
+    <script type="text/javascript" src="vue.js"></script>
+    <style>
+        #panel{
+            position: absolute;
+            top:50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: 500px;
+            width: 500px;
+            background-color: lemonchiffon;
+        }
+        #show,#first,#second{
+            position: absolute;
+            top:50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: 400px;
+            width: 400px;
+        }
+        #show{
+            background-color: red;
+        }
+        #first{
+            background-color: green;
+        }
+        #second{
+            background-color: blue;
+        }
+        .button{
+            position: absolute;
+            bottom: 20px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="panel">
+    <div id="show" v-show="show">
+        <h2 style="text-align: center">这里是首页</h2>
+    </div>
+    <div id="first" v-show="showfirst">
+        <h2 style="text-align: center">这里是目录</h2>
+    </div>
+    <div id="second" v-show="showsecond">
+        <h2 style="text-align: center">这里是内容</h2>
+    </div>
+<div class="button">
+    <button @click="Show" data-id="1">展示首页</button>
+    <button @click="Show" data-id="2">展示第一页</button>
+    <button @click="Show" data-id="3">展示第二页</button>
+</div>
+
+</div>
+
+<script>
+    var changeshow=new Vue({
+        el:"#panel",
+        data:{
+            show:true,
+            showfirst:false,
+            showsecond:false,
+        },
+        methods:{
+          Show(e) {
+              if(e.target.dataset.id==1){
+              changeshow.show=true;
+              changeshow.showfirst=false;
+              changeshow.showsecond=false;
+              }
+              if(e.target.dataset.id==2){
+              changeshow.showfirst=true;
+              changeshow.show=false;
+              changeshow.showsecond=false;
+              }
+              if(e.target.dataset.id==3){
+              changeshow.showsecond=true;
+              changeshow.show=false;
+              changeshow.showfirst=false;
+              }
+          },
+
+        }
+    })
+</script>
+</body>
+</html>

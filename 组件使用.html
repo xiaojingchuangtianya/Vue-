@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件使用</title>
+    <script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+<div id="app">
+<!--    当组件不显示时依次调用beforDestrayed,destroy -->
+    <lin_use v-if="is_show"></lin_use>
+</div>
+<script type="text/javascript">
+    //组件的使用
+    //首先,蒂定义好组件
+    let my_component=Vue.component("component-1",{
+        //必须要由一个大标签包裹住,不然会报错
+        template:"<div><h1>{{com}}</h1><button @click='clickEvent'>点击修改</button></div>",
+        data:function () {
+            return {
+                com:"linjin"
+            }
+        },
+        methods:{
+          clickEvent:function () {
+                this.com="修改值"
+          }
+        },
+           beforeCreate(){
+            //此时,数据和方法都没有绑定到myapp上,只是实例化了内容
+            //一般此时做ajax操作,获取数据
+            console.log("创造前")
+
+
+        },
+        created(){
+            //此时数据已经绑定到数据和方法到app上,但数据还没有渲染到页面上
+            console.log("创建后")
+
+        },
+
+        beforeMount(){
+            //此时的数据暂时还没有渲染到页面中,所以id值获取为null
+
+            console.log("渲染前")
+
+        },
+        mounted(){
+            //此时数据已经渲染了,数据已经渲染到页面,
+            console.log("渲染后")
+        },
+        beforeUpdate:function(){
+          //此时数据已经发生修改,但是并未渲染到前端,
+          console.log("修改前")
+
+        },
+        updated:function() {
+            //  在此步时,内容渲染到页面了
+            console.log("修改后")
+        },
+        beforeDestroy:function(){
+          console.log("摧毁前")
+        },destroyed:function(){
+            console.log("摧毁后")
+        },
+    });
+
+    //组件注册
+    let myapp=new Vue({
+        el:"#app",
+        data:{
+            is_show:true
+        },
+        components:{
+            "lin_use":my_component
+        },
+    })
+
+
+
+
+
+</script>
+
+</body>
+</html>

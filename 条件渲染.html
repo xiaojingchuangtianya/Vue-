@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>条件渲染</title>
+    <script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+<div id="app2">
+<!--    if-else使用 -->
+    <h2>姓名：{{user_name}}</h2>
+    <p v-if="show">这就是vip?可真是人傻钱多呀，i了i了</p>
+    <p v-else>噢，这就是穷比？</p>
+
+    <hr>
+<!--    if else-if else 使用-->
+    <h2>游戏登陆系统</h2>
+    <p v-if="age<10">你小于10岁，建议不要玩游戏</p>
+    <p v-else-if="age<18">你未成年，建议只玩4小时</p>
+    <p v-else>随便你玩吧，你个没用的成年人</p>
+</div>
+
+<script>
+    let app2 =new Vue({
+       el :"#app2",
+        data:{
+           user_name:"林景",
+            show:true,
+            age:17
+        }
+    });
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模板语法</title>
+    <script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+<div id="app">
+
+    <P>{{message}}</P>
+<!--加v-once得不会页面内容不会被修改-->
+    <h1 v-once>{{message}}</h1>
+
+<!--如果希望模板内容展示html标签则需要使用到v-html=""-->
+<!--但不建议,会受到xss攻击-->
+    <h1 v-html="htmlText"></h1>
+
+<!--绑定动态属性,修改属性内容 V-bind可省略-->
+
+    <h2 v-bind:id="change">id可以被修改</h2>
+
+<!--模板拼接-->
+    <p>{{message+change}}</p>
+
+<!--三元比较符号-->
+    <p>
+        {{is_Vip?"欢迎您,VIP客户":"建议你充值不然打残你!"}}
+    </p>
+</div>
+<script type="text/javascript">
+    var app1=new Vue({
+        el:"#app",
+        data:{
+            message:"修改是否会改变!",
+            htmlText:"<p>里面又两行信息</p> <p>这也是一行</p>",
+            change:"id_value",
+            is_Vip:true
+        }
+    })
+
+</script>
+</body>
+</html>

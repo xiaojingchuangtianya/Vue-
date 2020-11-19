@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vuefor循环</title>
+    <script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+<div id="app3">
+<!--i时迭代中间值-->
+    <li v-for="i in for_list">
+        {{i}}
+    </li>
+    <ul>
+        <li v-for="item,key in for_list1" v-if="item.sex=='man'" :key="for_list_show">
+
+            索引:{{key}}姓名：{{item.name}}
+            <p>性别：{{item.sex}}</p>
+            <p>喜欢的人：{{item.lover}}</p>
+        </li>
+    </ul>
+</div>
+<script type="text/javascript">
+    let method3=new Vue({
+        el:"#app3",
+        data:{
+            for_list:["1","2","3","4"],
+            for_list1:[
+                {name:"林景",
+                sex:"man",
+                lover:"彭茵茵"},
+
+                {name:"彭茵茵",
+                sex:"girl",
+                lover:"林景"},
+
+                {
+                name:"林景1",
+                sex:"man",
+                lover:"null",
+                }
+            ]
+        }
+    })
+</script>
+</body>
+</html>

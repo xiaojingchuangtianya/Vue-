@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v_show切换</title>
+    <script type="text/javascript" src="vue.js"></script>
+</head>
+<style>
+    #inner{
+        background-color: greenyellow; width: 200px; height: 300px
+    }
+</style>
+<body>
+<div id="show">
+    <div id="inner" v-show="isShow" ></div>
+    <button v-on:click="clickChange" v-if="isShow">点击收起界面</button>
+    <button v-on:click="clickChange" v-else>点击打开页面</button>
+</div>
+
+<script type="text/javascript">
+    var showapp=new Vue({
+        el:"#show",
+        data:{
+            isShow:true,
+        },
+        methods:{
+            clickChange:function (){
+                showapp.isShow = !showapp.isShow
+            }
+        }
+    })
+
+</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>计算属性</title>
+    <script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+<div id="app">
+<!--字符拼接-->
+    <h1>{{first+second}}</h1>
+    <h1>{{joint}}</h1>
+
+<!--字符倒序-->
+    <h1>{{word.split("").reverse().join("")}}</h1>
+    <h2>{{reversion}}</h2>
+
+<h2>通过直接v-for,v-if判断展示</h2>
+    <ul>
+        <li v-for="item,index in stu" v-if="item.id%2==0">{{item.id}}---{{item.name}}</li>
+    </ul>
+<h2>通过computed计算属性展示</h2>
+    <ul>
+        <li v-for="item,index in stufunc">{{item.id}}---{{item.name}}</li>
+    </ul>
+</div>
+<script type="text/javascript">
+    var app2=new Vue({
+        el:"#app",
+        data:{
+            first:"lin",
+            second:"jing",
+            word:"LGD是不可能战胜",
+            stu:[
+                {id:1,
+                name:"林景"},
+
+                {id:2,
+                name:"彭茵茵"},
+
+                {id:3,
+                name:"linjing"},
+
+                {id:4,
+                name:"彭茵茵"}
+            ]
+        },
+        computed:{
+            joint:function () {
+            //将first与second拼接在一起
+            //会将计算结果拼接在一起,然后将结果缓存起来,组成元素不该就不会再次耗费资源
+            return this.first+this.second
+        },
+            reversion:function () {
+                return this.word.split("").reverse().join("")
+            },
+            stufunc:function () {
+                return this.stu.filter((item,index)=>{
+                    return item.id%2!=0
+                })
+            }
+        }
+    })
+</script>
+</body>
+</html>
